@@ -23,7 +23,6 @@ before_script:
 
 script:
   - travis_retry docker build --build-arg KUBECTL_VERSION=$KUBECTL_VERSION -t "$image" .
-  - ~/official-images/test/run.sh "$image"
 
 after_script:
   - docker images
