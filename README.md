@@ -2,7 +2,7 @@
 
 ### What is `kubectl`
 
-`kubectl` is a CLI tool to control a cluster [Kubernetes](http://kubernetes.io/). This container also allows a user to run arbitrary commands.
+`kubectl` is a CLI tool to control a [Kubernetes](http://kubernetes.io/) cluster. This container also allows a user to run arbitrary commands.
 
 ### Usage
 ```
