@@ -1,10 +1,12 @@
-FROM alpine:3.5
+FROM alpine:3.6
+
+ARG KUBECTL_VERSION
 
 ENV HOME=/config
 
 RUN set -x && \
     apk add --no-cache curl ca-certificates bash && \
-    curl -LS https://storage.googleapis.com/kubernetes-release/release/v1.5.3/bin/linux/amd64/kubectl -o /usr/bin/kubectl && \
+    curl -LS https://storage.googleapis.com/kubernetes-release/release/$KUBECTL_VERSION/bin/linux/amd64/kubectl -o /usr/bin/kubectl && \
     chmod +x /usr/bin/kubectl && \
     \
     # Basic check it works.

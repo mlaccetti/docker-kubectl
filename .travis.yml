@@ -1,0 +1,35 @@
+dist: trusty
+language: go
+services: docker
+
+matrix:
+  include:
+  - go: '1.x'
+    env:
+    - KUBECTL_VERSION=1.6.4
+  - go: '1.x'
+    env:
+    - KUBECTL_VERSION=1.5.7
+  - go: '1.x'
+    env:
+    - KUBECTL_VERSION=1.4.9
+
+install:
+  - git clone https://github.com/docker-library/official-images.git ~/official-images
+
+before_script:
+  - env | sort
+  - image="mlaccetti/kubectl:${KUBECTL_VERSION}"
+
+script:
+  - travis_retry docker build --build-arg KUBECTL_VERSION=$KUBECTL_VERSION -t "$image" .
+  - ~/official-images/test/run.sh "$image"
+
+after_script:
+  - docker images
+
+after_success:
+  - if [ "$TRAVIS_BRANCH" == "master" ]; then
+      docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
+      docker push "mlaccetti/kubectl:${KUBECTL_VERSION}";
+    fi
